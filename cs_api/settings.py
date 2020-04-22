@@ -1,2 +1,0 @@
-SQLALCHEMY_DATABASE_URI = "..\data\csup.db"
-BUNDLE_ERRORS = True
