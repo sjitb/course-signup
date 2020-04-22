@@ -26,6 +26,11 @@ db = SQLAlchemy(app)
 api = Api(app)
 api.prefix = '/api'
 
+
+@app.teardown_request
+def shutdown_session(exception=None):
+    db_session.remove()
+
 from endpoints.assistants.resource import AssistantResource
 from endpoints.courses.resource import CourseResource
 

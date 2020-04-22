@@ -1,31 +1,29 @@
 from flask_restful import Resource, reqparse, request
 from flask_restful import fields, marshal_with, marshal
-from .model import User
+from .model import Assistants
 from app import db
 
-user_fields = {
+
+assistant_fields = {
     'id': fields.Integer,
     'name': fields.String,
-    'todos': fields.List(fields.Nested({'id': fields.Integer,
-                                        'name': fields.String,
-                                        'description': fields.String})),
 }
 
-user_list_fields = {
+assistant_list_fields = {
     'count': fields.Integer,
-    'users': fields.List(fields.Nested(user_fields)),
+    'assistants': fields.List(fields.Nested(assistant_fields)),
 }
 
-user_post_parser = reqparse.RequestParser()
-user_post_parser.add_argument('name', type=str, required=True, location=['json'],
+assistant_post_parser = reqparse.RequestParser()
+assistant_post_parser.add_argument('name', type=str, required=True, location=['json'],
                               help='name parameter is required')
 
 
 class AssistantResource(Resource):
-    def get(self, user_id=None):
-        if user_id:
-            user = User.query.filter_by(id=user_id).first()
-            return marshal(user, user_fields)
+    def get(self, assistant_id=None):
+        if assistant_id:
+            assistant = Assistants.query.filter_by(id=assistant_id).first()
+            return marshal(assistant, assistant_fields)
         else:
             args = request.args.to_dict()
             limit = args.get('limit', 0)
@@ -34,45 +32,45 @@ class AssistantResource(Resource):
             args.pop('limit', None)
             args.pop('offset', None)
 
-            user = User.query.filter_by(**args).order_by(User.id)
+            assistant = Assistants.query.filter_by(**args).order_by(Assistants.id)
             if limit:
-                user = user.limit(limit)
+                assistant = assistant.limit(limit)
 
             if offset:
-                user = user.offset(offset)
+                assistant = assistant.offset(offset)
 
-            user = user.all()
+            assistant = assistant.all()
 
             return marshal({
-                'count': len(user),
-                'users': [marshal(u, user_fields) for u in user]
-            }, user_list_fields)
+                'count': len(assistant),
+                'assistants': [marshal(u, assistant_fields) for u in assistant]
+            }, assistant_list_fields)
 
-    @marshal_with(user_fields)
+    @marshal_with(assistant_fields)
     def post(self):
-        args = user_post_parser.parse_args()
+        args = assistant_post_parser.parse_args()
 
-        user = User(**args)
-        db.session.add(user)
+        assistant = Assistants(**args)
+        db.session.add(assistant)
         db.session.commit()
 
-        return user
+        return assistant
 
-    @marshal_with(user_fields)
-    def put(self, user_id=None):
-        user = User.query.get(user_id)
+    @marshal_with(assistant_fields)
+    def put(self, assistant_id=None):
+        assistant = Assistants.query.get(assistant_id)
 
         if 'name' in request.json:
-            user.name = request.json['name']
+            assistant.name = request.json['name']
 
         db.session.commit()
-        return user
+        return assistant
 
-    @marshal_with(user_fields)
-    def delete(self, user_id=None):
-        user = User.query.get(user_id)
+    @marshal_with(assistant_fields)
+    def delete(self, assistant_id=None):
+        assistant = Assistants.query.get(assistant_id)
 
-        db.session.delete(user)
+        db.session.delete(assistant)
         db.session.commit()
 
-        return user
+        return assistant

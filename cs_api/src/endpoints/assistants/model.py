@@ -17,4 +17,10 @@ class User(db.Model):
         lazy='joined')
     
     def __repr__(self):
-        return 'Id: {}, Name: {}'.format(self.id, self.name)
+        return 'Id: {}, Name: {}, Email_Id: {}, Phone: {}, Is_Active: {}'.format(
+            self.id, 
+            self.name,
+            self.email_id,
+            self.phone,
+            self.is_active
+            )

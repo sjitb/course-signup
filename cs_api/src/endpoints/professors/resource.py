@@ -4,8 +4,8 @@ from .model import Professors
 from app import db
 
 professor_fields = {
-    'id': fields.Integer,
-    'name': fields.String,
+    'Id': fields.Integer,
+    'Name': fields.String,
 }
 
 professor_list_fields = {

@@ -6,14 +6,11 @@ from app import db
 department_fields = {
     'id': fields.Integer,
     'name': fields.String,
-    'todos': fields.List(fields.Nested({'id': fields.Integer,
-                                        'name': fields.String,
-                                        'description': fields.String})),
 }
 
 department_list_fields = {
     'count': fields.Integer,
-    'users': fields.List(fields.Nested(department_fields)),
+    'departments': fields.List(fields.Nested(department_fields)),
 }
 
 department_post_parser = reqparse.RequestParser()
@@ -45,10 +42,10 @@ class UsersResource(Resource):
 
             return marshal({
                 'count': len(department),
-                'users': [marshal(d, department_fields) for d in department]
+                'departments': [marshal(d, department_fields) for d in department]
             }, department_list_fields)
 
-    @marshal_with(user_fields)
+    @marshal_with(department_fields)
     def post(self):
         args = department_post_parser.parse_args()
 
