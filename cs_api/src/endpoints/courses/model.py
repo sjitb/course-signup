@@ -8,7 +8,7 @@ class Courses(db.Model):
 
     id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    department_name = db.Column(db.String, nullable=False)
+    department = db.Column(db.String, nullable=False)
     semester = db.Column(db.String, nullable=False)
     year = db.Column(db.Integer, nullable=False)
     is_active = db.Column(db.Integer, nullable=False)
