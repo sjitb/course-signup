@@ -55,7 +55,11 @@ Project structure:
 `python -m venv env`
 4. Launch Python Virtual Environment by executing:<br>
 `.\env\Scripts\activate`
-3. Start server by running:<br> 
+5. Set up database: <br>
+    `python manage.py db init` <br>
+    `python manage.py db migrate` <br>
+    `python manage.py db upgrade` <br>
+6. Start server by running:<br> 
 `python manage.py runserver`
 
 ## Usage
