@@ -36,7 +36,7 @@ course_post_parser.add_argument('Is_Active', type=int, required=False, location=
 course_post_parser.add_argument('Department_Id', type=int, required=False, location=['json'])
 
 
-class CoursesResource(Resource):
+class CourseResource(Resource):
     def get(self, course_id=None):
         if course_id:
             course = Courses.query.filter_by(id=course_id).first()
@@ -83,7 +83,7 @@ class CoursesResource(Resource):
         db.session.commit()
         return course
 
-    @marshal_with(user_fields)
+    @marshal_with(course_fields)
     def delete(self, course_id=None):
         course = Courses.query.get(course_id)
 

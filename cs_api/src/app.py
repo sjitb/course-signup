@@ -27,12 +27,13 @@ api = Api(app)
 api.prefix = '/api'
 
 
-@app.teardown_request
-def shutdown_session(exception=None):
-    db_session.remove()
 
 from endpoints.assistants.resource import AssistantResource
 from endpoints.courses.resource import CourseResource
+from endpoints.courses.resource import CourseResource
+from endpoints.courses.resource import CourseResource
+from endpoints.courses.resource import CourseResource
+
 
 api.add_resource(AssistantResource, '/assistants', '/assistants/<int:assistant_id>')
 api.add_resource(CourseResource, '/courses', '/courses/<int:course_id>')

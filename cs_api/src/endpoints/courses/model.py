@@ -15,7 +15,7 @@ class Courses(db.Model):
     department_id = db.Column(db.Integer, nullable=True)
     
 
-    departmentR = db.relationship('department', backref='department.id', primaryjoin='course.department_id==department.id', lazy='joined')
+    #departmentR = db.relationship('department', backref='department.id', primaryjoin='course.department_id==department.id', lazy='joined')
 
 
 
