@@ -18,7 +18,7 @@ student_post_parser.add_argument('name', type=str, required=True, location=['jso
                               help='name parameter is required')
 
 
-class StudentssResource(Resource):
+class StudentsResource(Resource):
     def get(self, student_id=None):
         if student_id:
             student = Students.query.filter_by(id=student_id).first()

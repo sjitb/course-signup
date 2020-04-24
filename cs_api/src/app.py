@@ -33,13 +33,18 @@ api.prefix = '/api'
 
 from endpoints.assistants.resource import AssistantResource
 from endpoints.courses.resource import CourseResource
-from endpoints.courses.resource import CourseResource
-from endpoints.courses.resource import CourseResource
-from endpoints.courses.resource import CourseResource
+from endpoints.courses.resource import StudentsResource
+from endpoints.courses.resource import ProfessorsResource
+from endpoints.courses.resource import DepartmentsResource
 
 
 api.add_resource(AssistantResource, '/assistants', '/assistants/<int:assistant_id>')
 api.add_resource(CourseResource, '/courses', '/courses/<int:course_id>')
+api.add_resource(CourseResource, '/students', '/students/<int:student_id>')
+api.add_resource(CourseResource, '/professors', '/professors/<int:professor_id>')
+api.add_resource(CourseResource, '/departments', '/departments/<int:department_id>')
+
+
 
 if __name__ == '__main__':
     app.run()

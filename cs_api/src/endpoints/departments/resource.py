@@ -18,7 +18,7 @@ department_post_parser.add_argument('name', type=str, required=True, location=['
                               help='name parameter is required')
 
 
-class UsersResource(Resource):
+class DepartmentsResource(Resource):
     def get(self, department_id=None):
         if department_id:
             department = Departments.query.filter_by(id=department_id).first()
